@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Truck Collection</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url("https://cdnl.iconscout.com/lottie/premium/thumb/truck-animation-gif-download-8853224.gif") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px 50px;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+      width: 400px;
+      max-width: 95%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .count {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    li {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .truck-name {
+      font-weight: bold;
+      color: #FFD700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Total Trucks in Our Collection</h1>
+    <div class="count">
+      <!-- Backend se count print karo -->
+      {{truckCount}} <!-- Example for EJS/Django -->
+    </div>
+
+    <ul id="list">
+      <!-- Backend se list generate karo -->
+      <li><span class="truck-name">Tata 407</span> <span>Mumbai</span></li>
+      <li><span class="truck-name">Ashok Leyland</span> <span>Pune</span></li>
+      <li><span class="truck-name">Mahindra Blazo</span> <span>Delhi</span></li>
+    </ul>
+  </div>
+</body>
+</html>

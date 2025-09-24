@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transporter Dashboard - TruckApp</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url("https://cdnl.iconscout.com/lottie/premium/thumb/truck-animation-gif-download-8853224.gif") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .navbar-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .navbar-right a {
+      text-decoration: none;
+      color: white;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .navbar-right a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .navbar-right a.logout {
+      background-color: #ff4444;
+    }
+
+    .navbar-right a.logout:hover {
+      background-color: #cc0000;
+    }
+
+    /* Dashboard Content */
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: calc(100vh - 60px);
+      text-align: center;
+      padding: 100px 20px 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    /* Form Box */
+    .form-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      width: 320px;
+      margin-bottom: 20px;
+    }
+
+    .form-box h3 {
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      width: 90%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #ffcc00;
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 95%;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6b800;
+    }
+
+    /* Responsive Fix */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+      }
+      .navbar-right {
+        width: 100%;
+        justify-content: space-around;
+      }
+      .navbar-right a {
+        font-size: 0.8rem;
+        padding: 4px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚚 TruckWale</div>
+    <div class="navbar-right">
+      <a href="#">Who Book</a>
+      <a href="#" ">Number of Trucks: <strong id="number">0</strong></a>
+      <a href="#">Edit Profile</a>
+      <a href="/login" class="logout">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard">
+    <h1>Welcome, Transporter!</h1>
+
+    <!-- Add Truck Form -->
+    <div class="form-box">
+      <h3>Add New Truck</h3>
+      <form action="/add-truck" method="POST">
+        <input type="text" name="ownername" placeholder="Truck Owner Name" required>
+        <input type="number" name="year" placeholder="Year of Truck" required>
+        <input type="number" name="wheel" placeholder="Number of wheel" required>
+         <input type="text" name="trucknumber" placeholder="Truck Number" required>
+          <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="number" name="capacity" placeholder="Capacity (in tons)" required>
+        <input type="text" name="model" placeholder="Enter the truckmodel" required>
+        <button type="submit">Add Truck</button>
+      </form>
+    </div>
+  </div>
+<script>
+  const truckcount=document.getElementById("number");
+  async function findtruck(){
+    const data=await fetch("/alltruck");
+    const response=await data.json();
+    truckcount.innerText="";
+    truckcount.innerText=response.num;
+  };
+  window.onload=findtruck
+</script>
+</body>
+</html>
