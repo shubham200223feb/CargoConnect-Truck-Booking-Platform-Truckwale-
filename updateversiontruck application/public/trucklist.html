@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Truck List - TruckApp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      /* Background image */
+      background: url("https://media.istockphoto.com/id/465151144/photo/colorful-truck-on-the-mountain-road.jpg?s=2048x2048&w=is&k=20&c=MMMugAB2QTt8iKNzn82mHQGoI3M2CLQbhTtWMrbHLnk=") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Navbar */
+    nav {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+    }
+    nav a {
+      color: white;
+      margin-right: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    /* Truck list */
+    ul {
+      list-style: none;
+      padding: 20px;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+    li {
+      background: rgba(255, 255, 255, 0.85);
+      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Inline delete form */
+    form {
+      display: inline;
+      margin: 0;
+    }
+    button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="/home">Home</a>
+    <a href="/transportdashbord">Transport Dashboard</a>
+  </nav>
+
+  <!-- Truck List -->
+  <ul id="trucklist">
+    
+      
+  </ul>
+<script>
+    const list = document.getElementById("trucklist");
+
+    async function showlist() {
+        const response = await fetch("/alltrucklist");
+        const data = await response.json();
+
+        data.forEach(i => {
+            const item = document.createElement("li");
+            item.innerHTML = `
+                Owner = ${i.ownername} | Wheel = ${i.wheel} | Capacity = ${i.capacity} | Model = ${i.model} <br>
+                <form method="post" action="/deletetruck">
+                    <input type="hidden" name="id" value="${i.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            `;
+            list.appendChild(item);
+        });
+
+        console.log(data);
+    }
+
+    showlist();
+</script>
+
+</body>
+</html>

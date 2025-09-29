@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - TruckApp</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url("https://cdnl.iconscout.com/lottie/premium/thumb/truck-animation-gif-download-8853224.gif") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .navbar-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .navbar-right a {
+      text-decoration: none;
+      color: white;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .navbar-right a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .navbar-right a.logout {
+      background-color: #ff4444;
+    }
+
+    .navbar-right a.logout:hover {
+      background-color: #cc0000;
+    }
+
+    /* Dashboard Content */
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: calc(100vh - 60px);
+      text-align: center;
+      padding: 100px 20px 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    /* Booking Form */
+    .form-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      width: 320px;
+      margin-bottom: 20px;
+    }
+
+    .form-box h3 {
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      width: 90%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #ffcc00;
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 95%;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6b800;
+    }
+
+    /* Transporter UL List */
+    .transporter-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .transporter-list li {
+      background: rgba(0, 0, 0, 0.7); /* Dark background for visibility */
+      color: white; /* Text color */
+      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .transporter-list li:hover {
+      transform: scale(1.02);
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    /* ✅ Responsive Fix */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+      }
+      .navbar-right {
+        width: 100%;
+        justify-content: space-around;
+      }
+      .navbar-right a {
+        font-size: 0.8rem;
+        padding: 4px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚚 TruckWale</div>
+    <div class="navbar-right">
+      <a href="/userbooking">Booking Till Now: <strong id="bookingnumber">0</strong></a>
+      <a href="/userpanding">Pending Booking: <strong id="pendingnumber"">0</strong></a>
+      <a href="/login" class="logout">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard">
+    <h1>Welcome, User!</h1>
+
+    <!-- Booking Form -->
+    <div class="form-box">
+      <h3>Find Transporter</h3>
+      <form id="filterForm">
+        <input type="text" name="city" placeholder="City" >
+        <input type="text" name="state" placeholder="State" >
+        <button type="submit">Find</button>
+      </form>
+    </div>
+
+    <!-- Transporter UL List -->
+    <ul class="transporter-list" id="transporter-list">
+    
+    </ul>
+
+  </div>
+<script>
+  document.getElementById("filterForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const params = new URLSearchParams(new FormData(this)).toString();
+  const response = await fetch("/search?" + params);
+  const data = await response.json();
+
+  const resultsContainer = document.getElementById("transporter-list");
+  resultsContainer.innerHTML = "";
+
+  if (data.length > 0) {
+   data.forEach(item => {
+  const li = document.createElement("li");
+  li.textContent = `Transport==${item.transportname} - Owner==${item.owner} - Phone==${item.phone}`;
+
+  // Call button
+  const callBtn = document.createElement("a");
+  callBtn.innerText = "Call";
+  callBtn.href = `tel:${item.phone}`;
+  callBtn.style.marginLeft = "10px";
+
+  // Form container (hidden initially)
+  const formDiv = document.createElement("div");
+  formDiv.style.display = "none"; 
+  formDiv.style.marginTop = "5px";
+
+  // Form with Book / Not Book buttons
+  formDiv.innerHTML = `
+    <form method="post" action="/formbook">
+      <input type="hidden" name="transporter" value="${item.transportname}">
+      <input type="hidden" name="phone" value="${item.phone}">
+      <button type="submit" name="status" value="booked">Book</button>
+      <button type="submit" name="status" value="not_booked">Not Book</button>
+    </form>
+  `;
+
+  // Append buttons/form to li
+  li.appendChild(callBtn);
+  li.appendChild(formDiv);
+  resultsContainer.appendChild(li);
+
+  // Click on call button → 1–2 sec delay → show form
+  callBtn.addEventListener("click", () => {
+    setTimeout(() => {
+      formDiv.style.display = "block"; // show buttons
+    }, 2000); // 2 second delay
+  });
+});
+
+  } else {
+    resultsContainer.innerHTML = "<li>No results found</li>";
+  }
+});
+const bookingnumber=document.getElementById("bookingnumber");
+const pendingnumber=document.getElementById("pendingnumber");
+async function bookingcout(){
+  const response=await fetch("./bookingcount");
+  const data =await response.json();
+  bookingnumber.innerText="";
+  bookingnumber.innerText=data.num
+}
+async function pendingcout(){
+  const response=await fetch("./pendingcount");
+  const data =await response.json();
+  pendingnumber.innerText="";
+  pendingnumber.innerText=data.num
+}
+window.onload=()=>{
+  pendingcout(),
+  bookingcout()}
+</script>
+</body>
+</html>

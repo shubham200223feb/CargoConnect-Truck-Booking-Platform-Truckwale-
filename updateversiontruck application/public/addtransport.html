@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transporter Signup - TruckApp</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url("https://media.istockphoto.com/id/465151144/photo/colorful-truck-on-the-mountain-road.jpg?s=2048x2048&w=is&k=20&c=MMMugAB2QTt8iKNzn82mHQGoI3M2CLQbhTtWMrbHLnk=") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      color: white;
+      width: 360px;
+      max-height: 95vh;
+      overflow-y: auto;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    input {
+      width: 90%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #ffcc00;
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 95%;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6b800;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Scrollbar styling for overflow */
+    .container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .container::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+    .container::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add Transport</h2>
+    <form action="addtransport" method="post">
+      <input type="text" name="transportname" placeholder="Transporter/Company Name" required>
+      <input type="text" name="owner" placeholder="Transporter Owner Name" required>
+      <input type="text"  name="address" placeholder="Address" required>
+      <input type="text" name="city" placeholder="City" required>
+      <input type="text" name="state" placeholder="State" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit">Add Transport Global</button>
+    </form>
+    <a href="/home">Back To HomePage</a>
+  </div>
+</body>
+</html>

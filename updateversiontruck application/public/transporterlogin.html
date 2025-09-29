@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Login - TruckApp</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url("https://media.istockphoto.com/id/1334575791/photo/smart-logistics-and-transportation-handshake-for-successful-of-investment-deal-teamwork-and.jpg?s=612x612&w=0&k=20&c=wre_Lsxkm2lSzUF4PqxjC-OHDbI9ssuDWxqvSeO9I3M=") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      color: white;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #ffcc00;
+    }
+
+    input {
+      width: 90%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #ffcc00;
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 95%;
+      margin-top: 15px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6b800;
+    }
+
+    .extra-links {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .extra-links a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>🚚 TruckWale Login As Transporter</h2>
+    <form action="/logintransporter" method="post">
+      <input type="email"  name="email" id="email" placeholder="Enter Email" required>
+      <input type="password" name="password" id="password" placeholder="Enter Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="extra-links">
+      <p>Don't have an account? <a href="/signupastransporter">Sign up</a></p>
+      <a href="/home">Back To HomePage</a>
+    </div>
+  </div>
+
+
+    
+
+</body>
+</html>

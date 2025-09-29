@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Truck App</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: url("https://cdnl.iconscout.com/lottie/premium/thumb/truck-animation-gif-download-8853224.gif") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Navbar Styling */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.6); /* Transparent black */
+      padding: 15px 30px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    ul li a:hover {
+      color: #ffcc00; /* Yellow hover effect */
+    }
+
+    /* Center Heading */
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 60px); /* full height minus navbar */
+      color: white;
+      text-shadow: 2px 2px 5px black;
+      font-size: 3rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚚 TruckWale</div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/login">Login as User</a></li>
+      <li><a href="/transporterlogin">Login as Transporter</a></li>
+      <li><a href="/signupuser">Signup as User</a></li>
+      <li><a href="signupastransporter">Signup as Transporter</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="content">
+    Welcome to TruckWale!
+  </div>
+</body>
+</html>
